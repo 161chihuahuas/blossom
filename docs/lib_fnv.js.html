@@ -64,52 +64,52 @@ class FNV extends Transform {
    * @param {string} [encoding] - If data is a string, specify the encoding
    * @returns {FNV}
    */
-	update(data, encoding) {
-		if (typeof data === 'string') {
-			data = Buffer.from(data, encoding);
-		} else if (!Buffer.isBuffer(data)) {
-			throw TypeError('Expected a String or Buffer');
-		}
-		
+  update(data, encoding) {
+    if (typeof data === 'string') {
+      data = Buffer.from(data, encoding);
+    } else if (!Buffer.isBuffer(data)) {
+      throw TypeError('Expected a String or Buffer');
+    }
+    
     for (let i = 0; i &lt; data.length; i++) {
-			this.hash = this.hash ^ data[i];
+      this.hash = this.hash ^ data[i];
 
-			// 32 bit FNV prime = 2**24 + 2**8 + 0x93
-			this.hash += 
+      // 32 bit FNV prime = 2**24 + 2**8 + 0x93
+      this.hash += 
         (this.hash &lt;&lt; 24) + 
         (this.hash &lt;&lt; 8) + 
         (this.hash &lt;&lt; 7) + 
         (this.hash &lt;&lt; 4) + 
         (this.hash &lt;&lt; 1);
-		}
+    }
 
     return this;
-	}
+  }
 
   /**
    * Returns the computed FNV hash
    * @param {string} [encoding] - Encoding type to return
    * @returns {string|Buffer}
    */
-	digest(encoding) {
-		const buf = Buffer.alloc(4);
+  digest(encoding) {
+    const buf = Buffer.alloc(4);
 
-		buf.writeInt32BE(this.hash &amp; 0xffffffff, 0);
-		
+    buf.writeInt32BE(this.hash &amp; 0xffffffff, 0);
+    
     if (encoding) {
       return buf.toString(encoding);
     } else {
       return buf;
     }
-	}
+  }
 
   /**
    * Returns the current hash value
    * @returns {number}
    */ 
-	value() {
-		return this.hash &amp; 0xffffffff;
-	}
+  value() {
+    return this.hash &amp; 0xffffffff;
+  }
 
 }
 

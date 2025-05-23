@@ -24,8 +24,8 @@ const { FNV } = require('./fnv');
  * @returns {number}
  */
 function calculateSize(capacity, errorRate) {
-	const log2sq = 0.480453;  // Math.pow(Math.log(2), 2)
-	return Math.ceil(capacity * Math.log(errorRate) / -log2sq);
+  const log2sq = 0.480453;  // Math.pow(Math.log(2), 2)
+  return Math.ceil(capacity * Math.log(errorRate) / -log2sq);
 }
 
 /**
@@ -35,7 +35,7 @@ function calculateSize(capacity, errorRate) {
  * @returns {number}
  */
 function calculateSlices(size, capacity) {
-	return size / capacity * Math.log(2);
+  return size / capacity * Math.log(2);
 }
 
 /**
@@ -47,24 +47,24 @@ function calculateSlices(size, capacity) {
  * @see {@link http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.72.2442}
  */
 function calulateHashes(key, size, slices) {
-	function fnv(seed, data) {
-		const h = new FNV();
+  function fnv(seed, data) {
+    const h = new FNV();
 
-		h.update(seed);
-		h.update(data);
-		
+    h.update(seed);
+    h.update(data);
+    
     return h.value() >>> 0;
-	}
+  }
 
-	const h1 = fnv(Buffer.from('S'), key);
-	const h2 = fnv(Buffer.from('W'), key);
-	const hashes = [];
+  const h1 = fnv(Buffer.from('S'), key);
+  const h2 = fnv(Buffer.from('W'), key);
+  const hashes = [];
 
-	for (let i = 0; i &lt; slices; i++) {
-		hashes.push((h1 + i * h2) % size);
-	}
+  for (let i = 0; i &lt; slices; i++) {
+    hashes.push((h1 + i * h2) % size);
+  }
 
-	return hashes;
+  return hashes;
 }
 
 
@@ -88,32 +88,32 @@ class BloomFilter {
    * @param {string|Buffer} key - Item to add
    * @returns {BloomFilter}
    */
-	add(key) {
-		const hashes = calulateHashes(key, this.size, this.slices);
+  add(key) {
+    const hashes = calulateHashes(key, this.size, this.slices);
     
-		for (let i = 0; i &lt; hashes.length; i++) {
-			this.bitfield.set(hashes[i], true);
-		}
+    for (let i = 0; i &lt; hashes.length; i++) {
+      this.bitfield.set(hashes[i], true);
+    }
 
     return this;
-	}
-	
+  }
+  
   /**
    * Check if an item probably exists in the Bloom filter
    * @param {string|Buffer} key - Item to check
    * @returns {boolean}
    */
   has(key) {
-		const hashes = calulateHashes(key, this.size, this.slices);
+    const hashes = calulateHashes(key, this.size, this.slices);
 
-		for (let i = 0; i &lt; hashes.length; i++) {
-			if (!this.bitfield.get(hashes[i])) {
+    for (let i = 0; i &lt; hashes.length; i++) {
+      if (!this.bitfield.get(hashes[i])) {
         return false;
       }
-		}
+    }
 
-		return true;
-	}
+    return true;
+  }
 
   /**
    * Create a {@link BloomFilter} from an object.
@@ -125,10 +125,10 @@ class BloomFilter {
    * @returns {BloomFilter}
    */
   static destringify(data) {
-	  const filter = new BloomFilter(data.size, data.slices);
-	  filter.bitfield.buffer = Buffer.from(data.bitfield.buffer);
+    const filter = new BloomFilter(data.size, data.slices);
+    filter.bitfield.buffer = Buffer.from(data.bitfield.buffer);
 
-	  return filter;
+    return filter;
   }
 
 }
@@ -157,25 +157,25 @@ class SafeBloomFilter {
    * @param {string|Buffer} key - Item to add
    * @returns {boolean} wasAdded
    */
-	add(key) {
-		if (this.count >= this.capacity) {
-			return false;
-		}
+  add(key) {
+    if (this.count >= this.capacity) {
+      return false;
+    }
 
-		this.filter.add(key);
-		this.count++;
-		
+    this.filter.add(key);
+    this.count++;
+    
     return true;
-	}
+  }
 
   /**
    * Checks if the given item probably exists in the Bloom filter.
    * @param {string|Buffer} key - Item to check
    * @returns {boolean}
    */
-	has(key) {
-		return this.filter.has(key);
-	}
+  has(key) {
+    return this.filter.has(key);
+  }
 
   /**
    * Create a {@link SafeBloomFilter} from an object
@@ -225,38 +225,38 @@ class ScalingBloomFilter {
    * @param {string|Buffer} key - Item to add
    * @returns {ScalingBloomFilter}
    */
-	add(key) {
-		let f = this.filters.slice(-1)[0];
+  add(key) {
+    let f = this.filters.slice(-1)[0];
 
-		if (f.add(key)) {
-			return;
-		}
+    if (f.add(key)) {
+      return;
+    }
 
-		f = new SafeBloomFilter(
+    f = new SafeBloomFilter(
       f.capacity * this.scaling, 
       f.errorRate * this.ratio
     );
-		
+    
     f.add(key);
     this.filters.push(f);
 
     return this;
-	}
+  }
 
   /**
    * Checks if an item probably exists in the filter
    * @param {string|Buffer} key - Item to check
    * @returns {boolean}
    */
-	has(key) {
-		for (let i = this.filters.length; i-- > 0;) {
-			if (this.filters[i].has(key)) {
-				return true;
-			}
-		}
+  has(key) {
+    for (let i = this.filters.length; i-- > 0;) {
+      if (this.filters[i].has(key)) {
+        return true;
+      }
+    }
 
-		return false;
-	}
+    return false;
+  }
 
   /**
    * Create a {@link ScalingBloomFilter} from an object

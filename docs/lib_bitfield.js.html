@@ -13,7 +13,7 @@
 
 
 class Bitfield {
-	
+  
   /**
    * A bitfield backed by a node.js Buffer.
    * @constructor
@@ -44,45 +44,45 @@ class Bitfield {
    * @param {boolean} value - Value to set
    * @returns {Bitfield}
    */
-	set(index, bool) {
-		const pos = index >>> 3;
-		
+  set(index, bool) {
+    const pos = index >>> 3;
+    
     if (bool) {
-			this.buffer[pos] |= 1 &lt;&lt; (index % 8);
-		} else {
-			this.buffer[pos] &amp;= ~(1 &lt;&lt; (index % 8));
-		}
+      this.buffer[pos] |= 1 &lt;&lt; (index % 8);
+    } else {
+      this.buffer[pos] &amp;= ~(1 &lt;&lt; (index % 8));
+    }
 
     return this;
-	}
+  }
 
   /**
    * Returns the value of the bit at the given index.
    * @param {number} index - Position of the bit to get
    * @returns {boolean}
    */
-	get(index) {
-		return (this.buffer[index >>> 3] &amp; (1 &lt;&lt; (index % 8))) !== 0;
-	}
+  get(index) {
+    return (this.buffer[index >>> 3] &amp; (1 &lt;&lt; (index % 8))) !== 0;
+  }
 
   /**
    * Flips the bit at the given index.
    * @param {number} index - Position of the bit to flip
    * @return {Bitfield}
    */
-	toggle(index) {
-		this.buffer[index >>> 3] ^= 1 &lt;&lt; (index % 8);
+  toggle(index) {
+    this.buffer[index >>> 3] ^= 1 &lt;&lt; (index % 8);
 
     return this;
-	}
+  }
 
   /**
    * Returns the underlying buffer.
    * @returns {Buffer}
    */
-	toBuffer() {
-		return this.buffer;
-	}
+  toBuffer() {
+    return this.buffer;
+  }
 
 }
 
