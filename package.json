@@ -1,0 +1,29 @@
+{
+  "name": "@tacticalchihuahua/blossom",
+  "version": "1.0.0",
+  "description": "a modern bloom filter library",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test --exit",
+    "generate-docs": "mkdir -p ./docs && rm -r ./docs && jsdoc index.js lib -r -c .jsdoc.json --verbose -d ./docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/161chihuahuas/blossom.git"
+  },
+  "keywords": [
+    "bloom",
+    "filter"
+  ],
+  "author": "Lily Anne <161chihuahuas@disroot.org>",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/161chihuahuas/blossom/issues"
+  },
+  "homepage": "https://github.com/161chihuahuas/blossom#readme",
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "clean-jsdoc-theme": "^4.3.0",
+    "mocha": "^11.4.0"
+  }
+}
