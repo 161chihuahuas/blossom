@@ -10,7 +10,7 @@
     "template": "./node_modules/clean-jsdoc-theme",
     "theme_opts": {
       "default_theme": "dark",
-      "homepageTitle": "blossom ~ a modern bloom filter library"
+      "homepageTitle": "🌸 blossom ~ scalable bloom filters"
     }
   },
   "markdown": {

@@ -1,4 +1,4 @@
-# blossom *a modern bloom filter library for node.js*
+# 🌸 blossom ~ *scalable bloom filters*
 
 ```
 npm install @tacticalchihuahua/blossom --save

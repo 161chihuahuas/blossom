@@ -1,7 +1,7 @@
 {
   "name": "@tacticalchihuahua/blossom",
   "version": "1.0.0",
-  "description": "a modern bloom filter library",
+  "description": "scalable bloom filters",
   "main": "index.js",
   "scripts": {
     "test": "mocha test --exit",
