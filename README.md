@@ -1,7 +1,7 @@
 # 🌸 blossom ~ *scalable bloom filters*
 
 ```
-npm install @tacticalchihuahua/blossom --save
+npm install @yipyap/blossom --save
 ```
 
 This package contains a small handful of utilities for efficient 
@@ -20,7 +20,7 @@ authors for their work.
 ### example
 
 ```js
-const { BloomFilter } = require('@tacticalchihuahua/blossom').bloom;
+const { BloomFilter } = require('@yipyap/blossom').bloom;
 const bloomFilter = new BloomFilter();
 
 bloomFilter.add(Buffer.from('00acab00', 'hex'));
@@ -33,5 +33,5 @@ console.log(bloomFilter.has(Buffer.from('12345678', 'hex'))); // false
 
 ### copying
 
-anti-copyright 2025, tactical chihuahua  
+anti-copyright 2025, chihuahua.rodeo  
 licensed under the lesser gnu general public license 3.0

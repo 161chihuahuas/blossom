@@ -1,5 +1,5 @@
 {
-  "name": "@tacticalchihuahua/blossom",
+  "name": "@yipyap/blossom",
   "version": "1.0.0",
   "description": "scalable bloom filters",
   "main": "index.js",
