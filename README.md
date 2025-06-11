@@ -1,7 +1,7 @@
 # 🌸 blossom ~ *scalable bloom filters*
 
 ```
-npm install @yipyap/blossom --save
+npm install @yipsec/blossom --save
 ```
 
 This package contains a small handful of utilities for efficient 
@@ -20,7 +20,7 @@ authors for their work.
 ### example
 
 ```js
-const { BloomFilter } = require('@yipyap/blossom').bloom;
+const { BloomFilter } = require('@yipsec/blossom').bloom;
 const bloomFilter = new BloomFilter();
 
 bloomFilter.add(Buffer.from('00acab00', 'hex'));

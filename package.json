@@ -1,5 +1,5 @@
 {
-  "name": "@yipyap/blossom",
+  "name": "@yipsec/blossom",
   "version": "1.0.0",
   "description": "scalable bloom filters",
   "main": "index.js",
