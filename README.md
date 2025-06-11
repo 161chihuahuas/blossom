@@ -33,5 +33,5 @@ console.log(bloomFilter.has(Buffer.from('12345678', 'hex'))); // false
 
 ### copying
 
-anti-copyright 2025, chihuahua.rodeo  
+anti-copyright 2025, yipsec  
 licensed under the lesser gnu general public license 3.0
